@@ -1,5 +1,5 @@
 // Configuration de l'API
-const API_URL = "http://localhost:3001/api";
+const API_URL = "https://quita-backend.onrender.com/api";
 
 // Gestionnaire de la page d'accueil
 class HomeManager {
