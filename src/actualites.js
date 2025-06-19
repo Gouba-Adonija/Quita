@@ -30,8 +30,7 @@ class ActualitesManager {
     this.searchInput.addEventListener("input", () => {
       this.filterActualites();
     });
-
-    // Filtres
+    //les filters
     this.filterButtons.forEach((btn) => {
       btn.addEventListener("click", () => {
         this.filterButtons.forEach((b) => b.classList.remove("active"));
