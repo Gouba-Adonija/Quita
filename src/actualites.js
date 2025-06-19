@@ -1,5 +1,6 @@
 // Configuration de l'API
-const API_URL = "https://quita-backend.onrender.com/api";
+const API_URL = "http://localhost:3001/api";
+const staticImage = "http://localhost:3001";
 
 // Gestionnaire de la page des actualités
 class ActualitesManager {
@@ -49,7 +50,7 @@ class ActualitesManager {
 
   async loadActualites() {
     try {
-      const response = await fetch(`${API_URL}/actualites`);
+      const response = await fetch(`${API_URL}/composants/actualites`);
       this.actualites = await response.json();
 
       // Afficher l'actualité à la une
@@ -57,7 +58,7 @@ class ActualitesManager {
       this.featuredNews.innerHTML = `
                 <div class="featured-card">
                     <div class="featured-image">
-                        <img src="${featuredActu.image}" alt="${
+                        <img src="${staticImage}${featuredActu.image}" alt="${
         featuredActu.titre
       }">
                     </div>
@@ -96,7 +97,7 @@ class ActualitesManager {
         (actu) => `
             <div class="news-card" data-category="${actu.categorie}">
                 <div class="news-image">
-                    <img src="${actu.image}" alt="${actu.titre}">
+                    <img src="${staticImage}${actu.image}" alt="${actu.titre}">
                     <span class="category-tag">${actu.categorie}</span>
                 </div>
                 <div class="news-content">
@@ -134,10 +135,13 @@ class ActualitesManager {
     this.displayActualites(filteredActus);
   }
 
-  async showActualiteDetails(actualiteId) {
+  async showActualiteDetails(villeId, actualiteId) {
     try {
-      const response = await fetch(`${API_URL}/actualites/${actualiteId}`);
+      const response = await fetch(
+        `${API_URL}/villes/${villeId}/actualites/${actualiteId}`
+      );
       const actualite = await response.json();
+      console.log("actual", actualite);
 
       // Créer une modal pour afficher les détails
       const modal = document.createElement("div");
@@ -160,7 +164,7 @@ class ActualitesManager {
                         </div>
                         
                         <div class="actualite-image">
-                            <img src="${actualite.image}" alt="${
+                            <img src="${staticImage}${actualite.image}" alt="${
         actualite.titre
       }">
                         </div>
@@ -203,7 +207,7 @@ class ActualitesManager {
         .map(
           (ville) => `
                 <div class="popular-item">
-                    <img src="${ville.image}" alt="${ville.nom}">
+                    <img src="${staticImage}${ville.image}" alt="${ville.nom}">
                     <h4>${ville.nom}</h4>
                     <a href="/villes.html?id=${ville.id}">Découvrir</a>
                 </div>
@@ -220,7 +224,7 @@ class ActualitesManager {
         .map(
           (site) => `
                 <div class="popular-item">
-                    <img src="${site.image}" alt="${site.nom}">
+                    <img src="${staticImage}${site.image}" alt="${site.nom}">
                     <h4>${site.nom}</h4>
                     <a href="/villes.html?site=${site.id}">Visiter</a>
                 </div>
@@ -284,9 +288,10 @@ class ActualitesManager {
   checkUrlParams() {
     const urlParams = new URLSearchParams(window.location.search);
     const actualiteId = urlParams.get("id");
+    const villeId = urlParams.get("ville");
 
     if (actualiteId) {
-      this.showActualiteDetails(actualiteId);
+      this.showActualiteDetails(villeId, actualiteId);
     }
   }
 }

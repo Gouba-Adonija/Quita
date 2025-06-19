@@ -1,5 +1,6 @@
 // Configuration de l'API
-const API_URL = "https://quita-backend.onrender.com/api";
+const API_URL = "http://localhost:3001/api";
+const staticImage = "http://localhost:3001";
 
 // Gestionnaire de la page d'accueil
 class HomeManager {
@@ -29,7 +30,9 @@ class HomeManager {
           (city) => `
                 <div class="city-card" data-id="${city.id}">
                     <div class="city-image">
-                        <img src="${city.image}" alt="${city.nom}">
+                        <img src="${staticImage}${city.image}" alt="${
+            city.nom
+          }">
                     </div>
                     <div class="city-content">
                         <h3>${city.nom}</h3>
@@ -51,8 +54,9 @@ class HomeManager {
 
   async loadLatestNews() {
     try {
-      const response = await fetch(`${API_URL}/actualites`);
+      const response = await fetch(`${API_URL}/composants/actualites`);
       const news = await response.json();
+      console.log(news);
 
       this.newsContainer.innerHTML = news
         .slice(0, 3)
@@ -60,7 +64,9 @@ class HomeManager {
           (item) => `
                 <div class="news-card">
                     <div class="news-image">
-                        <img src="${item.image}" alt="${item.titre}">
+                        <img src="${staticImage}${item.image}" alt="${
+            item.titre
+          }">
                     </div>
                     <div class="news-content">
                         <span class="news-date">${new Date(
@@ -68,9 +74,9 @@ class HomeManager {
                         ).toLocaleDateString()}</span>
                         <h3>${item.titre}</h3>
                         <p>${item.contenu.substring(0, 150)}...</p>
-                        <a href="/actualites.html?id=${
-                          item.id
-                        }" class="read-more">Lire la suite</a>
+                        <a href="/actualites.html?ville=${item.villeId}&id=${
+            item.id
+          }" class="read-more">Lire la suite</a>
                     </div>
                 </div>
             `
@@ -85,7 +91,7 @@ class HomeManager {
 
   async loadPopularSites() {
     try {
-      const response = await fetch(`${API_URL}/sites`);
+      const response = await fetch(`${API_URL}/composants/sites`);
       const sites = await response.json();
 
       this.sitesContainer.innerHTML = sites
@@ -94,7 +100,9 @@ class HomeManager {
           (site) => `
                 <div class="site-card">
                     <div class="site-image">
-                        <img src="${site.image}" alt="${site.nom}">
+                        <img src="${staticImage}${site.image}" alt="${
+            site.nom
+          }">
                     </div>
                     <div class="site-content">
                         <h3>${site.nom}</h3>

@@ -1,3 +1,5 @@
+const staticImage = "http://localhost:3001";
+
 // Charger le fichier JSON 'villes.json'
 fetch("./data/villes.json")
   .then((response) => response.json())
@@ -8,7 +10,7 @@ fetch("./data/villes.json")
     function createVilleCard(ville) {
       return `
                 <div class="ville-card" data-aos="fade-up">
-                    <img src="${ville.image}" alt="${ville.nom}">
+                    <img src="${staticImage}${ville.image}" alt="${ville.nom}">
                     <div class="ville-content">
                         <h2>${ville.nom}</h2>
                         <p>${ville.description}</p>
@@ -71,7 +73,7 @@ fetch("./data/villes.json")
                       .map(
                         (site) => `
                         <div class="site-card" data-aos="fade-up">
-                            <img src="${site.image}" alt="${site.nom}">
+                            <img src="${staticImage}${site.image}" alt="${site.nom}">
                             <h3>${site.nom}</h3>
                             <p>${site.description}</p>
                             <div class="site-info">

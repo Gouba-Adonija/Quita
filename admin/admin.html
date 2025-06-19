@@ -4,7 +4,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Panneau d'administration - Côte d'Ivoire Tourisme</title>
-    <link rel="stylesheet" href="style.css" />
+    <link rel="stylesheet" href="../src/styles/style.css" />
     <link rel="stylesheet" href="admin.css" />
     <script src="https://cdn.jsdelivr.net/npm/js-cookie@3.0.1/dist/js.cookie.min.js"></script>
   </head>
@@ -40,34 +40,36 @@
 
         <div id="actualites" class="tab-content">
           <h2>Gestion des actualités</h2>
-          <button class="btn add-btn" id="addActuBtn">
+          <button class="btn add-btn" id="addActuBtn" onclick="addActuModal()">
             ➕ Ajouter une actualité
           </button>
           <div id="actualitesList"></div>
         </div>
 
+        <div id="dashboard" class="tab-content active">
+          <h2>Dashboard Administration</h2>
+          <div class="dmodal-content">
+            <div class="stat-card">
+              <h3>Villes</h3>
+              <p class="stat-number" id="villesCount">0</p>
+            </div>
+            <div class="stat-card">
+              <h3>Sites Touristiques</h3>
+              <p class="stat-number" id="sitesCount">0</p>
+            </div>
+            <div class="stat-card">
+              <h3>Actualités</h3>
+              <p class="stat-number" id="actualitesCount">0</p>
+            </div>
+          </div>
+        </div>
+
         <div id="sites" class="tab-content">
           <h2>Gestion des sites touristiques</h2>
-          <button class="btn add-btn" id="addSiteBtn">
+          <button class="btn add-btn" id="addSiteBtn" onclick="addSiteModal()">
             ➕ Ajouter un site
           </button>
           <div id="sitesList"></div>
-        </div>
-
-        <div id="dashboard" class="tab-content active">
-          <h2>Tableau de bord</h2>
-          <div class="stat-card">
-            <h3>Villes</h3>
-            <p class="stat-number" id="villesCount">0</p>
-          </div>
-          <div class="stat-card">
-            <h3>Sites Touristiques</h3>
-            <p class="stat-number" id="sitesCount">0</p>
-          </div>
-          <div class="stat-card">
-            <h3>Actualités</h3>
-            <p class="stat-number" id="actualitesCount">0</p>
-          </div>
         </div>
       </div>
     </div>
@@ -76,7 +78,11 @@
     <div id="addVilleModal" class="modal">
       <div class="modal-content">
         <h2>➕ Ajouter une ville</h2>
-        <form id="addVilleForm">
+        <form
+          id="addVilleForm"
+          onsubmit="addVille(event)"
+          enctype="multipart/form-data"
+        >
           <div class="form-group">
             <label for="nom">Nom de la ville</label>
             <input type="text" id="nom" name="nom" required />
@@ -84,6 +90,14 @@
           <div class="form-group">
             <label for="description">Description</label>
             <textarea id="description" name="description" required></textarea>
+          </div>
+          <div class="form-group">
+            <label for="nom">Région</label>
+            <input type="text" id="region" name="region" required />
+          </div>
+          <div class="form-group">
+            <label for="nom">Population de la ville</label>
+            <input type="text" id="population" name="population" required />
           </div>
           <div class="form-group">
             <label for="image">Image principale</label>
@@ -120,8 +134,12 @@
     <!-- Modal Ajout Site -->
     <div id="addSiteModal" class="modal">
       <div class="modal-content">
-        <h2>Ajouter un site touristique</h2>
-        <form id="addSiteForm">
+        <h2 id="titleSiteForm">Ajouter un site touristique</h2>
+        <form
+          id="addSiteForm"
+          onsubmit="addSite(event)"
+          enctype="multipart/form-data"
+        >
           <div class="form-group">
             <label for="siteName">Nom du site</label>
             <input type="text" id="siteName" name="nom" required />
@@ -153,7 +171,9 @@
             <input type="text" id="tarifs" name="tarifs" required />
           </div>
           <div class="form-actions">
-            <button type="submit" class="btn">Ajouter</button>
+            <button type="submit" id="addSiteBtnForm" class="btn">
+              Ajouter
+            </button>
             <button
               type="button"
               class="btn"
@@ -170,7 +190,7 @@
     <div id="addActuModal" class="modal">
       <div class="modal-content">
         <h2>Ajouter une actualité</h2>
-        <form id="addActuForm">
+        <form id="addActuForm" onsubmit="addActualite(event)">
           <div class="form-group">
             <label for="actuTitre">Titre</label>
             <input type="text" id="actuTitre" name="titre" required />
@@ -194,7 +214,9 @@
             />
           </div>
           <div class="form-actions">
-            <button type="submit" class="btn">Ajouter</button>
+            <button type="submit" class="btn" id="addActuBtnForm">
+              Ajouter
+            </button>
             <button
               type="button"
               class="btn"
@@ -207,6 +229,7 @@
       </div>
     </div>
 
-    <script type="module" src="admin1.js"></script>
+    <script type="module" src="function.js"></script>
+    <script type="module" src="admin.js"></script>
   </body>
 </html>

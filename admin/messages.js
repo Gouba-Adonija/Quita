@@ -1,6 +1,5 @@
 import Cookies from "js-cookie";
-// import messages from '../data/messages.json';
-const message = {};
+import messages from "../data/messages.json"; //doit venir du backend
 
 // Vérification de l'authentification
 if (!Cookies.get("adminToken")) {
