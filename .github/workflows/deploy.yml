@@ -1,0 +1,33 @@
+# .github/workflows/deploy.yml
+name: Déployer sur GitHub Pages
+
+on:
+  push:
+    branches:
+      - main # Déclenche le workflow à chaque push sur la branche 'main' (ou 'master' si c'est votre branche principale)
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest # Environnement d'exécution
+
+    steps:
+      - name: Cloner le dépôt
+        uses: actions/checkout@v4
+
+      - name: Configurer Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20" # Utilisez une version de Node.js compatible avec votre projet (ex: '18', '20')
+
+      - name: Installer les dépendances
+        run: npm install
+
+      - name: Construire le projet Vite
+        run: npm run build # Exécute le script 'build' de votre package.json
+
+      - name: Déployer sur GitHub Pages
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./dist # Le dossier que Vite génère
+          publish_branch: gh-pages # La branche qui hébergera votre site (sera créée si elle n'existe pas)
