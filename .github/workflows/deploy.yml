@@ -23,7 +23,7 @@ jobs:
         run: npm install
 
       - name: Construire le projet Vite
-        run: npm run build # Exécute le script 'build' de votre package.json
+        run: npx vite build # Exécute le script 'build' de votre package.json
 
       - name: Déployer sur GitHub Pages
         uses: peaceiris/actions-gh-pages@v3
