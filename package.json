@@ -9,8 +9,9 @@
   },
   "scripts": {
     "dev": "vite",
-    "build": "npm install && vite build",
-    "preview": "vite preview"
+    "build": "npm run build:vercel",
+    "preview": "vite preview",
+    "build:vercel": "vite build"
   },
   "dependencies": {
     "aos": "^2.3.4",
